@@ -13,7 +13,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Execute the test
-pytest unit_test.py
+pytest
 ```
 
 # Alien Invasion 
