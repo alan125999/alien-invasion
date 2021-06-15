@@ -1,3 +1,6 @@
+# Alien Invasion - Test
+This project aims to add testing to Alien Invasion!
+
 # Alien Invasion 
 
 ![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)
