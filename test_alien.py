@@ -36,6 +36,11 @@ def test_check_edges(alien, x, result):
     (0.0,     -1, 0),     # zero speed            + negtive direction
     (-33.0,   -1, 33),    # Negtive int speed     + negtive direction
     (-80.795, -1, 80),    # Negtive float speed   + negtive direction
+
+    (2000.0,   1, 2000),  # speed > 1200          + positive direction
+    (-2000.0,  1, -2000), # speed < -1200         + positive direction
+    (4000.0,  -1, -4000), # speed > 1200          + negtive direction
+    (-4000.0, -1, 4000),  # speed < -1200         + negtive direction
 ])
 def test_update(alien, speed, direction, delta):
     alien.settings.alien_speed = speed
