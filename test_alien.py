@@ -2,6 +2,9 @@ from alien_invasion import AlienInvasion
 from alien import Alien
 
 import pytest
+import pygame
+
+from functools import reduce
 
 # Fixture
 @pytest.fixture
@@ -12,7 +15,25 @@ def game():
 def alien(game):
     return Alien(game)
 
+def imagesAreEqual(img1: pygame.Surface, img2: pygame.Surface):
+    pxarr1 = pygame.PixelArray(img1)
+    pxarr2 = pygame.PixelArray(img2)
+    compared = pxarr1.compare(pxarr2)
+    flatten = reduce(lambda accu, i: accu + list(i), compared, [])
+    return len(list(filter(lambda x: x != 0xFFFFFF, flatten))) == 0
+
 # Test Alien
+def test_init(alien, game):
+    assert alien.screen == game.screen
+    assert alien.settings == game.settings
+    img = pygame.image.load('assets/alien.bmp')
+    assert imagesAreEqual(alien.image, img)
+    rect = img.get_rect()
+    rect.x = rect.width
+    rect.y = rect.height
+    assert alien.rect == rect
+    assert alien.x == float(alien.rect.x)
+
 @pytest.mark.parametrize("x, result", [
     (1280, True),   # Move alien to the rightmost
     (0, True),      # Move alien to the leftmost

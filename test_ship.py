@@ -4,6 +4,8 @@ from ship import Ship
 import pytest
 import pygame
 
+from functools import reduce
+
 # Fixture
 @pytest.fixture
 def game():
@@ -13,9 +15,30 @@ def game():
 def ship(game):
     return Ship(game)
 
-# Test Bullet
+def imagesAreEqual(img1: pygame.Surface, img2: pygame.Surface):
+    pxarr1 = pygame.PixelArray(img1)
+    pxarr2 = pygame.PixelArray(img2)
+    compared = pxarr1.compare(pxarr2)
+    flatten = reduce(lambda accu, i: accu + list(i), compared, [])
+    return len(list(filter(lambda x: x != 0xFFFFFF, flatten))) == 0
+
+# Test Ship
+def test_init(ship, game):
+    assert ship.screen == game.screen
+    assert ship.settings == game.settings
+    assert ship.screen_rect == game.screen.get_rect()
+
+    img = pygame.image.load('assets/ship.bmp')
+    assert imagesAreEqual(ship.image, img)
+
+    rect = img.get_rect()
+    rect.midbottom = ship.screen_rect.midbottom
+    assert ship.rect == rect
+    assert ship.x == float(ship.rect.x)
+    assert ship.moving_right == False
+    assert ship.moving_left == False
+
 @pytest.mark.parametrize("moving_right, moving_left, x, screen_rect_right, ship_speed, delta", [
-    
     # The width of the ship is 60,
     # When setting rect.x := n, the rect.right := n + 60 and rect.left := n
     
