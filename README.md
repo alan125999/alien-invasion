@@ -4,6 +4,7 @@ This project aims to add testing to Alien Invasion!
 ```bash
 # Create Virtual Env
 python3 -m venv venv
+pip install --upgrade pip
 
 # Launch venv
 source venv/bin/activate
