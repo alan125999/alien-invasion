@@ -1,6 +1,20 @@
 # Alien Invasion - Test
 This project aims to add testing to Alien Invasion!
 
+```bash
+# Create Virtual Env
+python3 -m venv venv
+
+# Launch venv
+source venv/bin/activate
+
+# Install requirements
+pip install -r requirements.txt
+
+# Execute the test
+pytest unit_test.py
+```
+
 # Alien Invasion 
 
 ![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)
